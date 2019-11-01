@@ -72,41 +72,15 @@ async function init(){
     var color = Geometry.randomColor();
     
     draw();
-
-    window.onkeydown = keys;
     function updatePosition(index, way){
         if(way === '+')
             translation[index] += 5;
         else
             translation[index] -= 5;    
     }
-
-    function keys(event) {
-            switch(event.keyCode){
-                case 65:{   // left
-                    updatePosition(0, '-');
-                    console.log("a working...")
-                    draw();
-                    break;
-                }
-                case 87:{   // up
-                    updatePosition(1, '-');
-                    draw();
-                    break;
-                }
-                case 68:{   // right
-                    updatePosition(0, '+');
-                    draw();
-                    break;
-                }
-                case 83:{   // down
-                    updatePosition(1, '+');
-                    draw(); 
-                    break;
-                }
-            }
-    }
-
+    const eventMove = new EventHandler(updatePosition, draw);
+    window.onkeydown = eventMove.move;
+    
     function draw(){
         gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
 
