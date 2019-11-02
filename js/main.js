@@ -51,6 +51,7 @@ async function init(){
     var positionAttributeLocation = gl.getAttribLocation(program, "a_position");
     
     var resolutionUniformLocation = gl.getUniformLocation(program, "u_resolution");
+    var translationUniformLocation = gl.getUniformLocation(program, "u_translation");
     var colorLocation = gl.getUniformLocation(program, "u_color");
     
     var positionBuffer = gl.createBuffer();
@@ -71,6 +72,9 @@ async function init(){
     var height = 100;
     var color = Geometry.randomColor();
     
+    const me = new Shape();
+    Geometry.setGeometry(gl, me.gShape(0,0));
+
     draw();
     function updatePosition(index, way){
         if(way === '+')
@@ -94,13 +98,16 @@ async function init(){
         gl.uniform2f(resolutionUniformLocation, gl.canvas.width, gl.canvas.height);
 
         gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-        Geometry.setRectangle(gl, translation[0], translation[1], width, height);
+        
+        //Geometry.setRectangle(gl, translation[0], translation[1], width, height);
 
         gl.uniform4fv(colorLocation, color);
 
+        gl.uniform2fv(translationUniformLocation, translation);
+
         var primitiveType = gl.TRIANGLES;
         var offset = 0;
-        var count = 6;
+        var count = 24;
         gl.drawArrays(primitiveType, offset, count);
     }
     

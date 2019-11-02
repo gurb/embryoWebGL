@@ -4,7 +4,8 @@ const Geometry = {
     },
 
     setGeometry(gl, positions){
-        gl.bufferData(gl.ARRAY_BUFFER, new Float(positions), gl.STATIC_DRAW);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
+        console.log(positions);
     },
 
     setRectangle(gl, x, y, width, height){
